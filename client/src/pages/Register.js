@@ -6,6 +6,7 @@ import gql from 'graphql-tag';
 import { AuthContext } from '../context/auth';
 import { useForm } from '../util/hooks';
 
+
 function Register(props) {
   const context = useContext(AuthContext);
   const [errors, setErrors] = useState({});
@@ -36,6 +37,8 @@ function Register(props) {
   function registerUser() {
     addUser();
   }
+
+
 
   return (
     <div className="form-container">
@@ -94,6 +97,9 @@ function Register(props) {
   );
 }
 
+
+
+
 const REGISTER_USER = gql`
   mutation register(
     $username: String!
@@ -107,6 +113,10 @@ const REGISTER_USER = gql`
         email: $email
         password: $password
         confirmPassword: $confirmPassword
+       
+        
+        
+
       }
     ) {
       id
@@ -114,6 +124,7 @@ const REGISTER_USER = gql`
       username
       createdAt
       token
+     
     }
   }
 `;

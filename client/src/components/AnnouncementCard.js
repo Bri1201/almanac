@@ -8,6 +8,12 @@ import AcknowledgeButton from './AcknowledgeButton';
 import DeleteButton from './DeleteButton';
 import MyPopup from '../util/MyPopup';
 
+function isprof(email) {
+  var regex = /^[^@\s]+@vit\.ac\.in$/;
+  return regex.test(email);
+}
+
+
 function AnnouncementCard({
   announcement: { body, createdAt, id, username, acknowledgeCount, commentCount, acks }
 }) {
@@ -39,7 +45,7 @@ function AnnouncementCard({
             </Label>
           </Button>
         </MyPopup>
-        {user && user.username === username && <DeleteButton announcementId={id} />}
+        {user && (user.username === username || user.username === 'brinda' || user.username === 'dhananjay' || isprof(user.email)) && <DeleteButton announcementId={id} />}
       </Card.Content>
     </Card>
   );

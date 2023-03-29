@@ -62,7 +62,7 @@ module.exports = {
         username,
         email,
         password,
-        confirmPassword
+        confirmPassword,
       );
       if (!valid) {
         throw new UserInputError('Errors', { errors });

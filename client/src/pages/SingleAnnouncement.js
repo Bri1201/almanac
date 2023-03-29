@@ -16,6 +16,10 @@ import { AuthContext } from '../context/auth';
 import AcknowledgeButton from '../components/AcknowledgeButton';
 import DeleteButton from '../components/DeleteButton';
 import MyPopup from '../util/MyPopup';
+function isprof(email) {
+  var regex = /^[^@\s]+@vit\.ac\.in$/;
+  return regex.test(email);
+}
 
 function SingleAnnouncement(props) {
   const announcementId = props.match.params.announcementId;
@@ -97,7 +101,7 @@ function SingleAnnouncement(props) {
                   </Button>
                 </MyPopup>
                 
-                {user && (user.username === username || user.username === 'brinda') && (
+                {user && (user.username === username || user.username === 'brinda' || user.username === 'dhananjay' || isprof(user.email)) && (
   <DeleteButton announcementId={id} callback={deleteAnnouncementCallback} />
 )}  
               </Card.Content>
@@ -132,7 +136,7 @@ function SingleAnnouncement(props) {
             {comments.map((comment) => (
               <Card fluid key={comment.id}>
                 <Card.Content>
-                  {user && (user.username === comment.username || user.username === 'brinda') && (
+                  {user && (user.username === comment.username || user.username === 'brinda' || user.username === 'dhananjay' || isprof(user.email)) && (
   <DeleteButton announcementId={id} commentId={comment.id} />
 )}
 
