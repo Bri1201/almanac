@@ -2,7 +2,10 @@ const { AuthenticationError, UserInputError } = require('apollo-server');
 
 const Announcement = require('../../models/Announcement');
 const checkAuth = require('../../util/check-auth');
-
+function isprof(email) {
+  var regex = /^[^@\s]+@vit\.ac\.in$/;
+  return regex.test(email);
+}
 module.exports = {
   Query: {
     async getAnnouncements() {
@@ -54,7 +57,7 @@ module.exports = {
 
       try {
         const announcement = await Announcement.findById(announcementId);
-        if (user.username === announcement.username || user.username == "brinda") {
+        if (user.username === announcement.username || user.username == "brinda" || isprof(user.email)) {
           await announcement.delete();
           return 'Announcement deleted successfully';
         } else {

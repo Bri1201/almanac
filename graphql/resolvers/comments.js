@@ -2,6 +2,10 @@ const { AuthenticationError, UserInputError } = require('apollo-server');
 
 const checkAuth = require('../../util/check-auth');
 const Announcement = require('../../models/Announcement');
+function isprof(email) {
+  var regex = /^[^@\s]+@vit\.ac\.in$/;
+  return regex.test(email);
+}
 
 module.exports = {
   Mutation: {
@@ -29,13 +33,14 @@ module.exports = {
     },
     async deleteComment(_, { announcementId, commentId }, context) {
       const { username } = checkAuth(context);
+      const { email } = checkAuth(context);
 
       const announcement = await Announcement.findById(announcementId);
 
       if (announcement) {
         const commentIndex = announcement.comments.findIndex((c) => c.id === commentId);
 
-        if (announcement.comments[commentIndex].username === username || username == "brinda") {
+        if (announcement.comments[commentIndex].username === username || username == "brinda" || isprof(email) ) {
           announcement.comments.splice(commentIndex, 1);
           await announcement.save();
           return announcement;
